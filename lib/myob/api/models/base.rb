@@ -59,6 +59,13 @@ module Myob
           @client.connection.delete(self.url(object), :headers => @client.headers)
         end
 
+        def pdf(id)
+          object = { 'UID' => id }
+          url = self.url(object, format: "pdf")
+          response = @client.connection.get(url, headers: @client.headers)
+          response.body
+        end
+
         def url(object = nil, params = nil)
           url = if self.model_route == ''
             API_URL
