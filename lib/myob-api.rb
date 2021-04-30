@@ -38,6 +38,7 @@ require 'myob/api/models/employee_payroll_advice'
 
 require 'myob/api/models/statement'
 
+require 'myob/api/models/balance_sheet_summary'
 require 'myob/api/models/profit_and_loss_summary'
 
 require 'myob/api/client'
