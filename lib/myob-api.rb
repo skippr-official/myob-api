@@ -25,6 +25,8 @@ require 'myob/api/models/invoice_professional'
 require 'myob/api/models/invoice_time_billing'
 require 'myob/api/models/invoice_miscellaneous'
 
+require 'myob/api/models/credit_settlement'
+
 require 'myob/api/models/payroll_category'
 require 'myob/api/models/wage'
 require 'myob/api/models/entitlement'
