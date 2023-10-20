@@ -25,11 +25,11 @@ module Myob
           response = all(params)
           response.is_a?(Hash) && response.key?('Items') ? response['Items'] : response
         end
-        
+
         def next_page?
           !!@next_page_link
         end
-        
+
         def next_page(params = nil)
           perform_request(@next_page_link)
         end
@@ -41,12 +41,12 @@ module Myob
           end
           results
         end
-        
+
         def find(id)
           object = { 'UID' => id }
           perform_request(self.url(object))
         end
-        
+
         def first(params = nil)
           all(params).first
         end
@@ -59,9 +59,9 @@ module Myob
           @client.connection.delete(self.url(object), :headers => @client.headers)
         end
 
-        def pdf(id)
+        def pdf(id, template_name=nil)
           object = { 'UID' => id }
-          url = self.url(object, format: "pdf")
+          url = self.url(object, { format: "pdf", templatename: template_name }.compact)
           response = @client.connection.get(url, headers: @client.headers)
           response.body
         end
@@ -115,7 +115,7 @@ module Myob
         def date_formatter
           "%Y-%m-%dT%H:%M:%S"
         end
-        
+
         def resource_url
           if @client && @client.current_company_file_url
             "#{@client.current_company_file_url}/#{self.model_route}"
@@ -123,7 +123,7 @@ module Myob
             "#{API_URL}#{@client.current_company_file[:id]}/#{self.model_route}"
           end
         end
-        
+
         def perform_request(url)
           model_data = parse_response(@client.connection.get(url, {:headers => @client.headers}))
           @next_page_link = model_data['NextPageLink'] if self.model_route != ''
