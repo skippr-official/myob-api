@@ -61,7 +61,7 @@ module Myob
 
         def pdf(id, template_name=nil)
           object = { 'UID' => id }
-          url = self.url(object, { format: "pdf", templatename=template_name }.compact)
+          url = self.url(object, { format: "pdf", templatename: template_name }.compact)
           response = @client.connection.get(url, headers: @client.headers)
           response.body
         end
